@@ -1,22 +1,28 @@
 {
-  "namirnice": [
+  "medicines": [
     {
       "id": 1,
-      "naziv": "piletina",
-      "gramaza": 300,
-      "cena": 300
+      "name": "brufen",
+      "needsReceipt": false,
+      "costs": 150
     },
     {
       "id": 2,
-      "naziv": "krompir",
-      "gramaza": 250,
-      "cena": 140
+      "name": "fervex",
+      "needsReceipt": false,
+      "costs": 140
     },
     {
       "id": 3,
-      "naziv": "biftek",
-      "gramaza": 300,
-      "cena": 1300
+      "name": "strepsils",
+      "needsReceipt": false,
+      "costs": 250
+    },
+    {
+      "id": 4,
+      "name": "andol",
+      "needsReceipt": true,
+      "costs": 200
     }
   ]
 }
