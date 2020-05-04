@@ -3,26 +3,47 @@
     {
       "id": 1,
       "name": "brufen",
-      "needsReceipt": false,
-      "costs": 150
+      "needsPrescription": false,
+      "price": 150,
+      "count": 50
     },
     {
       "id": 2,
       "name": "fervex",
-      "needsReceipt": false,
-      "costs": 140
+      "needsPrescription": false,
+      "price": 140,
+      "count": 40
     },
     {
       "id": 3,
       "name": "strepsils",
-      "needsReceipt": false,
-      "costs": 250
+      "needsPrescription": false,
+      "price": 250,
+      "count": 30
     },
     {
       "id": 4,
       "name": "andol",
-      "needsReceipt": true,
-      "costs": 200
+      "needsPrescription": true,
+      "price": 200,
+      "count": 70
+    }
+  ],
+  "customers": [
+    {
+      "id": 1,
+      "medicine": "andol",
+      "hasPrescription": false
+    },
+    {
+      "id": 2,
+      "medicine": "brufn",
+      "hasPrescription": false
+    },
+    {
+      "id": 3,
+      "medicine": "fervex",
+      "hasPrescription": true
     }
   ]
 }
