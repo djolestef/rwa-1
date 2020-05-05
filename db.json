@@ -17,7 +17,7 @@
     {
       "id": 3,
       "name": "strepsils",
-      "needsPrescription": false,
+      "needsPrescription": true,
       "price": 250,
       "count": 30
     },
@@ -32,18 +32,18 @@
   "customers": [
     {
       "id": 1,
-      "medicine": "andol",
-      "hasPrescription": false
+      "medicines": ["andol", "strepsils"],
+      "hasPrescription": [false, true]
     },
     {
       "id": 2,
-      "medicine": "brufn",
-      "hasPrescription": false
+      "medicines": ["brufn", "andol"],
+      "hasPrescription": [false, true]
     },
     {
       "id": 3,
-      "medicine": "fervex",
-      "hasPrescription": true
+      "medicines": ["ferve", "andol"],
+      "hasPrescription": [true, false]
     }
   ]
 }
