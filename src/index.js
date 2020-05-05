@@ -1,47 +1,28 @@
 import {
-  fetchAllMedicines,
-  fetchMedicineByName,
-} from './services/medicine.services';
+  startWorkWithCustomer,
+  startWorkWithCustomera,
+} from './services/pharmacist.services';
 import {Medicine} from './Models/Medicine';
 import {Pharmacist} from './Models/Pharmacist';
 import {Customer} from './Models/Customer';
+import {fetchRandomCustomer} from './services/customer.services';
+import {fromEvent, from, zip, pipe, of, interval, merge} from 'rxjs';
+import {buffer, take, map, takeLast, takeUntil} from 'rxjs/operators';
 
-// const medicines = fetchAllMedicines ().then (test => {
-//   test.subscribe (x => console.log (x, test, medicines));
-// });
+interval(1000)
+  .pipe(
+    map((x, i) => {
+      return from((x = fetchRandomCustomer()));
+    }),
+    take(5)
+  )
+  .subscribe((x) =>
+    x.subscribe((y) => {
+      startWorkWithCustomer(y[0]);
+    })
+  );
 
-// fetchAllMedicines ().subscribe (x => {
-//   console.log (x);
-// });
-
-var customer1 = new Customer (1, 'andol', false);
-var customer2 = new Customer (2, 'bruen', false);
-var customer3 = new Customer (3, 'fervex', true);
-
-var pharmacist = new Pharmacist (1, true, [customer1, customer2, customer3]);
-
-var medicine;
-pharmacist.startWork ();
-
-// medicine = fetchMedicineByName ('andol').subscribe (x => {
-//   medicine = x[0];
-//   console.log (medicine);
-// });
-
-// RxJS v6+
-import {delay} from 'rxjs/operators';
-import {of, zip} from 'rxjs';
-
-const sourceOne = of ('Hello');
-const sourceTwo = of ('World!');
-const sourceThree = of ('Goodbye');
-const sourceFour = of ('World!');
-//wait until all observables have emitted a value then emit all as an array
-const example = zip (
-  sourceOne,
-  sourceTwo.pipe (delay (1000)),
-  sourceThree.pipe (delay (2000)),
-  sourceFour.pipe (delay (3000))
-);
-//output: ["Hello", "World!", "Goodbye", "World!"]
-//const subscribe = example.subscribe (val => console.log (val));
+// const source = interval(500);
+// const clicks = fromEvent(document, 'click');
+// const result = source.pipe(takeUntil(clicks));
+// result.subscribe((x) => console.log(x));
