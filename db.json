@@ -4,46 +4,42 @@
       "id": 1,
       "name": "brufen",
       "needsPrescription": false,
-      "price": 150,
       "count": 50
     },
     {
       "id": 2,
       "name": "fervex",
       "needsPrescription": false,
-      "price": 140,
       "count": 40
     },
     {
       "id": 3,
       "name": "strepsils",
       "needsPrescription": true,
-      "price": 250,
       "count": 30
     },
     {
       "id": 4,
       "name": "andol",
       "needsPrescription": true,
-      "price": 200,
       "count": 70
     }
   ],
   "customers": [
     {
       "id": 1,
-      "medicines": ["andol", "strepsils"],
-      "hasPrescription": [false, true]
+      "medicines": ["andol", "strepsils", "djole", "brufen"],
+      "hasPrescription": [true, false, false, false]
     },
     {
       "id": 2,
-      "medicines": ["brufn", "andol"],
-      "hasPrescription": [false, true]
+      "medicines": ["brufen", "andol", "strepsils"],
+      "hasPrescription": [false, false, true]
     },
     {
       "id": 3,
-      "medicines": ["ferve", "andol"],
-      "hasPrescription": [true, false]
+      "medicines": ["fervex", "andol", "brufen"],
+      "hasPrescription": [true, true, false]
     }
   ]
 }

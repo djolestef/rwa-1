@@ -1,4 +1,5 @@
 import {from, Observable} from 'rxjs';
+import Medicine from '../Models/Medicine';
 const API_URL = 'http://localhost:3000/medicines/';
 
 class MedicineService {
@@ -29,5 +30,22 @@ class MedicineService {
         .catch((err) => console.log(`Error `, err))
     );
   }
+
+  // public addNewMedicine() {
+  //   var medicine:Medicine = new Medicine();
+  //   medicine.name = document.getElementById('nameInput').value ;
+  //   medicine.needsPrescription = document.getElementById()
+
+  //   fetch(API_URL, {
+  //     method: 'post',
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       name:
+  //     })
+  //   });
+  // }
 }
 export default MedicineService;

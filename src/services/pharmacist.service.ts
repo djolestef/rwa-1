@@ -1,16 +1,26 @@
-import {from, zip, Observable} from 'rxjs';
+import {from, zip, Observable, interval} from 'rxjs';
+import {take} from 'rxjs/operators';
 import MedicineService from './medicine.service';
 import Customer from '../Models/Customer';
 import Medicine from '../Models/Medicine';
 
 class PharmacistService {
   private medicineService: MedicineService;
+  public canHaveMedicine: string;
+  public mustHavePrescription: string;
+  public doesntHave: string;
 
   constructor() {
     this.medicineService = new MedicineService();
+    this.canHaveMedicine = '';
+    this.mustHavePrescription = '';
+    this.doesntHave = '';
   }
 
   public startWorkWithCustomer(customer: Customer): void {
+    setTimeout(() => {
+      this.resetMessages();
+    }, 1);
     customer.medicines.map((medicineName: string, i: number) => {
       this.checkIfCustomerCanGetMedicine(
         medicineName,
@@ -62,16 +72,32 @@ class PharmacistService {
     medicineName: string
   ): void {
     if (!result[0]) {
-      console.log('Lek ' + medicineName + ' nemamo u ponudi');
-    } else {
-      if (result[1]) {
-        if (!result[1] || (result[1] && result[2])) {
-          console.log('Za ' + medicineName + ' morate imati recept');
-        } else {
-          console.log(' Mozete dobiti ' + medicineName);
-        }
-      }
+      this.doesntHave = !this.doesntHave
+        ? this.doesntHave
+        : this.doesntHave + ', ';
+      this.doesntHave += `${medicineName}`;
+      return;
     }
+
+    if (result[1] && !result[2]) {
+      this.mustHavePrescription = !this.mustHavePrescription
+        ? this.mustHavePrescription
+        : this.mustHavePrescription + ', ';
+      this.mustHavePrescription += `${medicineName}`;
+      return;
+    }
+
+    this.canHaveMedicine = !this.canHaveMedicine
+      ? this.canHaveMedicine
+      : this.canHaveMedicine + ', ';
+    this.canHaveMedicine += `${medicineName}`;
+  }
+
+  public resetMessages(): void {
+    this.canHaveMedicine = '';
+    this.mustHavePrescription = '';
+    this.doesntHave = '';
   }
 }
+
 export default PharmacistService;

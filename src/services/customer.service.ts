@@ -18,7 +18,7 @@ class CustomerService {
     );
   }
 
-  public fetchCustomerById(id): Observable<any> {
+  public fetchCustomerById(id: number): Observable<any> {
     return from(
       fetch(API_URL + '?id=' + id)
         .then((response: Response) => {
@@ -33,13 +33,13 @@ class CustomerService {
   }
 
   public fetchRandomCustomer(): Observable<any> {
-    var randomCustomerId = Math.floor(Math.random() * 3 + 1);
-
+    var randomCustomerId: number = Math.floor(Math.random() * 3 + 1);
+    // var randomCustomerId = 3;
     return from(
       this.fetchCustomerById(randomCustomerId)
         .toPromise()
         .then((customer: Customer) => {
-          var customer = new Customer(
+          var customer: Customer = new Customer(
             customer[0].id,
             customer[0].medicines,
             customer[0].hasPrescription
