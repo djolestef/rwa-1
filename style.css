@@ -10,3 +10,23 @@
 #editMedicineButton {
   margin-left: 5px;
 }
+
+#startSimulationButton {
+  margin-bottom: 5px;
+}
+
+#simulationInfo {
+  margin-left: 10px;
+}
+
+.cantHaveMedicine {
+  color: red;
+}
+
+.canHaveMedicine {
+  color: green;
+}
+
+.response {
+  margin: 0;
+}

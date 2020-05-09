@@ -13,30 +13,39 @@ class DrawResponse {
     doesntHave: string
   ): void {
     var container: HTMLDivElement = document.getElementById(
-      'startDiv'
+      'responseDiv'
     ) as HTMLDivElement;
 
     if (canHave) {
-      const canHaveLabel: HTMLDivElement = document.createElement('div');
-      canHaveLabel.innerHTML = `Mozete dobiti ${canHave}`;
+      const canHaveParagraph: HTMLParagraphElement = document.createElement(
+        'p'
+      );
+      canHaveParagraph.className = 'lead canHaveMedicine response';
+      canHaveParagraph.innerHTML = `Mozete dobiti ${canHave}`;
       // console.log(canHave);
-      container.appendChild(canHaveLabel);
+      container.appendChild(canHaveParagraph);
     }
 
     if (mustHavePrescription) {
-      const needsPrescriptionLabel: HTMLDivElement = document.createElement(
-        'div'
+      const needsPrescriptionParagraph: HTMLParagraphElement = document.createElement(
+        'p'
       );
-      needsPrescriptionLabel.innerHTML = `Morate imati recept za ${mustHavePrescription}`;
+      needsPrescriptionParagraph.innerHTML = `Morate imati recept za ${mustHavePrescription}`;
+      needsPrescriptionParagraph.className = 'lead cantHaveMedicine response';
+      needsPrescriptionParagraph.id = 'needsPrescription';
       // console.log(mustHavePrescription);
-      container.appendChild(needsPrescriptionLabel);
+      container.appendChild(needsPrescriptionParagraph);
     }
 
     if (doesntHave) {
-      const doesntHaveLabel: HTMLDivElement = document.createElement('div');
-      doesntHaveLabel.innerHTML = `Trenutno nemamo ${doesntHave}`;
+      const doesntHaveParagraph: HTMLParagraphElement = document.createElement(
+        'p'
+      );
+      doesntHaveParagraph.innerHTML = `Trenutno nemamo ${doesntHave}`;
+      doesntHaveParagraph.id = 'pharmacyDoesntHaveMedicine';
+      doesntHaveParagraph.className = 'lead cantHaveMedicine response';
       // console.log(doesntHave);
-      container.appendChild(doesntHaveLabel);
+      container.appendChild(doesntHaveParagraph);
     }
     container.appendChild(document.createElement('br'));
   }

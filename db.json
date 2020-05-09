@@ -41,5 +41,15 @@
       "medicines": ["fervex", "andol", "brufen"],
       "hasPrescription": [true, true, false]
     }
+  ],
+  "pharmacist": [
+    {
+      "id": 1,
+      "isAvailable": true
+    },
+    {
+      "id": 2,
+      "isAvailable": true
+    }
   ]
 }
