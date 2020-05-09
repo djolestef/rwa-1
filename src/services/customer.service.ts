@@ -34,7 +34,7 @@ class CustomerService {
 
   public fetchRandomCustomer(): Observable<any> {
     var randomCustomerId: number = Math.floor(Math.random() * 3 + 1);
-    // var randomCustomerId = 3;
+    // var randomCustomerId = 1;
     return from(
       this.fetchCustomerById(randomCustomerId)
         .toPromise()

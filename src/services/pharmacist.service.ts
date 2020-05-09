@@ -20,7 +20,7 @@ class PharmacistService {
   public startWorkWithCustomer(customer: Customer): void {
     setTimeout(() => {
       this.resetMessages();
-    }, 1);
+    }, 5);
     customer.medicines.map((medicineName: string, i: number) => {
       this.checkIfCustomerCanGetMedicine(
         medicineName,

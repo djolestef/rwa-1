@@ -1,17 +1,23 @@
 import MedicineService from '../services/medicine.service';
 import Medicine from '../Models/Medicine';
+import DrawUpdateMedicine from './drawUpdateMedicine';
 
 class DrawMedicines {
   private medicineService: MedicineService;
+  private drawUpdateMedicine: DrawUpdateMedicine;
 
   constructor() {
     this.medicineService = new MedicineService();
+    this.drawUpdateMedicine = new DrawUpdateMedicine();
   }
 
   public draw(): void {
     var container: HTMLDivElement = document.getElementById(
       'startDiv'
     ) as HTMLDivElement;
+
+    container.innerHTML = '';
+
     var table: HTMLTableElement = document.createElement('table');
     table.className = 'table';
     container.appendChild(table);
@@ -50,6 +56,10 @@ class DrawMedicines {
     var headerData4: HTMLTableHeaderCellElement = document.createElement('th');
     headerData4.innerHTML = 'Na stanju';
     tableHeader.appendChild(headerData4);
+
+    var headerData5: HTMLTableHeaderCellElement = document.createElement('th');
+    headerData5.innerHTML = 'Izmene';
+    tableHeader.appendChild(headerData5);
   }
 
   private drawMedicineRow(
@@ -78,6 +88,31 @@ class DrawMedicines {
     var countData: HTMLTableDataCellElement = document.createElement('td');
     tableRow.appendChild(countData);
     countData.innerHTML = `${medicine.count}`;
+
+    var modifyData: HTMLTableDataCellElement = document.createElement('td');
+    tableRow.appendChild(modifyData);
+
+    var deleteMedicineButton: HTMLButtonElement = document.createElement(
+      'button'
+    );
+    deleteMedicineButton.id = 'deleteMedicineButton';
+    modifyData.appendChild(deleteMedicineButton);
+    deleteMedicineButton.className = 'btn btn-danger' /*btn-sm rounded-0'*/;
+    deleteMedicineButton.innerHTML = 'Obrisi';
+    deleteMedicineButton.addEventListener('click', (event: Event) => {
+      this.medicineService.deleteMedicine(medicine.id);
+    });
+
+    var editMedicineButton: HTMLButtonElement = document.createElement(
+      'button'
+    );
+    editMedicineButton.id = 'editMedicineButton';
+    editMedicineButton.className = 'btn btn-info' /* btn-sm rounded-0'*/;
+    modifyData.appendChild(editMedicineButton);
+    editMedicineButton.innerHTML = 'Izmeni';
+    editMedicineButton.addEventListener('click', (event: Event) => {
+      this.drawUpdateMedicine.draw(medicine.id);
+    });
   }
 }
 export default DrawMedicines;

@@ -1,127 +1,155 @@
+import MedicineService from '../services/medicine.service';
+import DrawMedicines from './drawMedicines';
+import DrawAddOrEditForm from './drawAddOrEditForm';
+
 class DrawAddNewMedicine {
+  private medicineService: MedicineService;
+
+  constructor() {
+    this.medicineService = new MedicineService();
+  }
   public draw() {
     var container: HTMLDivElement = document.getElementById(
       'startDiv'
     ) as HTMLDivElement;
 
-    var inputForm: HTMLFormElement = document.createElement('form');
-    inputForm.className = 'inputForm';
-    container.appendChild(inputForm);
+    container.innerHTML = '';
 
-    var nameDiv: HTMLDivElement = document.createElement('div');
-    inputForm.appendChild(nameDiv);
+    let drawAddOrEditForm: DrawAddOrEditForm = new DrawAddOrEditForm();
+    container.innerHTML = drawAddOrEditForm.draw();
 
-    var nameLabel: HTMLLabelElement = document.createElement('label');
-    nameLabel.innerHTML = 'Ime:';
-    nameDiv.appendChild(nameLabel);
+    let submitButton: HTMLButtonElement = document.getElementById(
+      'submitButton'
+    ) as HTMLButtonElement;
 
-    var nameInputDiv: HTMLDivElement = document.createElement('div');
-    nameDiv.appendChild(nameInputDiv);
+    submitButton.addEventListener('click', (event: Event) => {
+      event.preventDefault();
+      this.medicineService.addNewMedicine();
+    });
 
-    var nameInput: HTMLInputElement = document.createElement('input');
-    nameInput.id = 'nameInput';
-    nameInputDiv.appendChild(nameInput);
+    //   var inputForm: HTMLFormElement = document.createElement('form');
+    //   inputForm.className = 'inputForm';
+    //   container.appendChild(inputForm);
 
-    var prescriptionFieldSet: HTMLFieldSetElement = document.createElement(
-      'fieldset'
-    );
-    inputForm.appendChild(prescriptionFieldSet);
+    //   var nameDiv: HTMLDivElement = document.createElement('div');
+    //   inputForm.appendChild(nameDiv);
 
-    var prescriptionInputDiv: HTMLDivElement = document.createElement('div');
-    prescriptionFieldSet.appendChild(prescriptionInputDiv);
+    //   var nameLabel: HTMLLabelElement = document.createElement('label');
+    //   nameLabel.innerHTML = 'Ime:';
+    //   nameDiv.appendChild(nameLabel);
 
-    var prescriptionLegend: HTMLLegendElement = document.createElement(
-      'legend'
-    );
-    prescriptionLegend.innerHTML = 'Potreban recept:';
-    prescriptionInputDiv.appendChild(prescriptionLegend);
+    //   var nameInputDiv: HTMLDivElement = document.createElement('div');
+    //   nameDiv.appendChild(nameInputDiv);
 
-    var radioButtonsDiv: HTMLDivElement = document.createElement('div');
-    prescriptionInputDiv.appendChild(radioButtonsDiv);
+    //   var nameInput: HTMLInputElement = document.createElement('input');
+    //   nameInput.id = 'nameInput';
+    //   nameInputDiv.appendChild(nameInput);
 
-    var prescriptionTrueDiv: HTMLDivElement = document.createElement('div');
-    radioButtonsDiv.appendChild(prescriptionTrueDiv);
+    //   var prescriptionFieldSet: HTMLFieldSetElement = document.createElement(
+    //     'fieldset'
+    //   );
+    //   inputForm.appendChild(prescriptionFieldSet);
 
-    var prescriptionTrueInput: HTMLInputElement = document.createElement(
-      'input'
-    );
-    prescriptionTrueInput.id = 'presriptionInput';
-    prescriptionTrueInput.type = 'radio';
-    prescriptionTrueInput.value = 'true';
-    prescriptionTrueInput.name = 'radioButton';
-    prescriptionTrueDiv.appendChild(prescriptionTrueInput);
+    //   var prescriptionInputDiv: HTMLDivElement = document.createElement('div');
+    //   prescriptionFieldSet.appendChild(prescriptionInputDiv);
 
-    var prescriptionTrueLabel: HTMLLabelElement = document.createElement(
-      'label'
-    );
-    prescriptionTrueLabel.innerHTML = 'Da';
-    prescriptionTrueDiv.appendChild(prescriptionTrueLabel);
+    //   var prescriptionLegend: HTMLLegendElement = document.createElement(
+    //     'legend'
+    //   );
+    //   prescriptionLegend.innerHTML = 'Potreban recept:';
+    //   prescriptionInputDiv.appendChild(prescriptionLegend);
 
-    var prescritpionFalseDiv: HTMLDivElement = document.createElement('div');
-    radioButtonsDiv.appendChild(prescritpionFalseDiv);
+    //   var radioButtonsDiv: HTMLDivElement = document.createElement('div');
+    //   prescriptionInputDiv.appendChild(radioButtonsDiv);
 
-    var prescriptionFalseInput: HTMLInputElement = document.createElement(
-      'input'
-    );
-    prescriptionTrueInput.id = 'presriptionInput';
-    prescriptionFalseInput.type = 'radio';
-    prescriptionFalseInput.value = 'false';
-    prescriptionFalseInput.name = 'radioButton';
-    prescritpionFalseDiv.appendChild(prescriptionFalseInput);
+    //   var prescriptionTrueDiv: HTMLDivElement = document.createElement('div');
+    //   radioButtonsDiv.appendChild(prescriptionTrueDiv);
 
-    var prescriptionFalseLabel: HTMLLabelElement = document.createElement(
-      'label'
-    );
-    prescriptionFalseLabel.innerHTML = 'Ne';
-    prescritpionFalseDiv.appendChild(prescriptionFalseLabel);
+    //   var prescriptionTrueInput: HTMLInputElement = document.createElement(
+    //     'input'
+    //   );
+    //   prescriptionTrueInput.id = 'prescriptionInputTrue';
+    //   prescriptionTrueInput.type = 'radio';
+    //   prescriptionTrueInput.value = 'true';
+    //   prescriptionTrueInput.name = 'radioButton';
+    //   prescriptionTrueDiv.appendChild(prescriptionTrueInput);
 
-    var countDiv: HTMLDivElement = document.createElement('div');
-    inputForm.appendChild(countDiv);
+    //   var prescriptionTrueLabel: HTMLLabelElement = document.createElement(
+    //     'label'
+    //   );
+    //   prescriptionTrueLabel.innerHTML = 'Da';
+    //   prescriptionTrueDiv.appendChild(prescriptionTrueLabel);
 
-    var countLabel: HTMLLabelElement = document.createElement('label');
-    countLabel.innerHTML = 'Kolicina:';
-    countDiv.appendChild(countLabel);
+    //   var prescritpionFalseDiv: HTMLDivElement = document.createElement('div');
+    //   radioButtonsDiv.appendChild(prescritpionFalseDiv);
 
-    var countInputDiv: HTMLDivElement = document.createElement('div');
-    countDiv.appendChild(countInputDiv);
+    //   var prescriptionFalseInput: HTMLInputElement = document.createElement(
+    //     'input'
+    //   );
+    //   prescriptionFalseInput.id = 'prescriptionInputFalse';
+    //   prescriptionFalseInput.type = 'radio';
+    //   prescriptionFalseInput.value = 'false';
+    //   prescriptionFalseInput.name = 'radioButton';
+    //   prescritpionFalseDiv.appendChild(prescriptionFalseInput);
 
-    var countInput: HTMLInputElement = document.createElement('input');
-    countInput.type = 'number';
-    countInput.id = 'nameInput';
-    countInputDiv.appendChild(countInput);
+    //   var prescriptionFalseLabel: HTMLLabelElement = document.createElement(
+    //     'label'
+    //   );
+    //   prescriptionFalseLabel.innerHTML = 'Ne';
+    //   prescritpionFalseDiv.appendChild(prescriptionFalseLabel);
 
-    var buttonDiv: HTMLDivElement = document.createElement('div');
-    inputForm.appendChild(buttonDiv);
+    //   var countDiv: HTMLDivElement = document.createElement('div');
+    //   inputForm.appendChild(countDiv);
 
-    var submitButtonDiv: HTMLDivElement = document.createElement('div');
-    buttonDiv.appendChild(submitButtonDiv);
+    //   var countLabel: HTMLLabelElement = document.createElement('label');
+    //   countLabel.innerHTML = 'Kolicina:';
+    //   countDiv.appendChild(countLabel);
 
-    var submitButton: HTMLButtonElement = document.createElement('button');
-    submitButtonDiv.appendChild(submitButton);
-    submitButton.type = 'submit';
-    submitButton.innerHTML = 'Dodaj';
+    //   var countInputDiv: HTMLDivElement = document.createElement('div');
+    //   countDiv.appendChild(countInputDiv);
 
-    nameDiv.className = 'form-group row';
-    nameLabel.className = 'col-sm-2 col-form-label';
-    nameInputDiv.className = 'col-sm-10';
-    nameInput.className = 'form-control';
-    prescriptionFieldSet.className = 'form-group';
-    prescriptionInputDiv.className = 'row';
-    prescriptionLegend.className = 'col-form-label col-sm-2 pt-0';
-    radioButtonsDiv.className = 'col-sm-10';
-    prescriptionTrueDiv.className = 'form-check';
-    prescriptionTrueInput.className = 'form-check-input';
-    prescriptionTrueLabel.className = 'form-check-label';
-    prescritpionFalseDiv.className = 'form-check';
-    prescriptionFalseInput.className = 'form-check-input';
-    prescriptionFalseLabel.className = 'form-check-label';
-    countDiv.className = 'form-group row';
-    countLabel.className = 'col-sm-2 col-form-label';
-    countInputDiv.className = 'col-sm-10';
-    countInput.className = 'form-control';
-    buttonDiv.className = 'form-group row';
-    submitButtonDiv.className = 'col-sm-10';
-    submitButton.className = 'btn btn-primary';
+    //   var countInput: HTMLInputElement = document.createElement('input');
+    //   countInput.type = 'number';
+    //   countInput.id = 'countInput';
+    //   countInputDiv.appendChild(countInput);
+
+    //   var buttonDiv: HTMLDivElement = document.createElement('div');
+    //   inputForm.appendChild(buttonDiv);
+
+    //   var submitButtonDiv: HTMLDivElement = document.createElement('div');
+    //   buttonDiv.appendChild(submitButtonDiv);
+
+    //   var submitButton: HTMLButtonElement = document.createElement('button');
+    //   submitButton.id = 'submitButton';
+    //   submitButtonDiv.appendChild(submitButton);
+    //   submitButton.type = 'submit';
+    //   submitButton.innerHTML = 'Dodaj';
+    //   submitButton.addEventListener('click', (event: Event) => {
+    //     event.preventDefault();
+    //     this.medicineService.addNewMedicine();
+    //   });
+
+    //   nameDiv.className = 'form-group row';
+    //   nameLabel.className = 'col-sm-2 col-form-label';
+    //   nameInputDiv.className = 'col-sm-10';
+    //   nameInput.className = 'form-control';
+    //   prescriptionFieldSet.className = 'form-group';
+    //   prescriptionInputDiv.className = 'row';
+    //   prescriptionLegend.className = 'col-form-label col-sm-2 pt-0';
+    //   radioButtonsDiv.className = 'col-sm-10';
+    //   prescriptionTrueDiv.className = 'form-check';
+    //   prescriptionTrueInput.className = 'form-check-input';
+    //   prescriptionTrueLabel.className = 'form-check-label';
+    //   prescritpionFalseDiv.className = 'form-check';
+    //   prescriptionFalseInput.className = 'form-check-input';
+    //   prescriptionFalseLabel.className = 'form-check-label';
+    //   countDiv.className = 'form-group row';
+    //   countLabel.className = 'col-sm-2 col-form-label';
+    //   countInputDiv.className = 'col-sm-10';
+    //   countInput.className = 'form-control';
+    //   buttonDiv.className = 'form-group row';
+    //   submitButtonDiv.className = 'col-sm-10';
+    //   submitButton.className = 'btn btn-primary';
   }
 }
 export default DrawAddNewMedicine;
