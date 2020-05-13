@@ -10,12 +10,12 @@ class DrawResponse {
   public draw(
     canHave: string,
     mustHavePrescription: string,
-    doesntHave: string
+    doesntHave: string,
+    container: HTMLDivElement
   ): void {
-    var container: HTMLDivElement = document.getElementById(
-      'responseDiv'
-    ) as HTMLDivElement;
-
+    // var container: HTMLDivElement = document.getElementById(
+    //   'responseDiv'
+    // ) as HTMLDivElement;
     if (canHave) {
       const canHaveParagraph: HTMLParagraphElement = document.createElement(
         'p'

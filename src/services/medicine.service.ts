@@ -93,7 +93,7 @@ class MedicineService {
     });
   }
 
-  public updateMedicine(id) {
+  public updateMedicine(id: number) {
     var medicine: Medicine = new Medicine();
     var nameInput: HTMLInputElement = document.createElement('input');
     nameInput = document.getElementById('nameInput') as HTMLInputElement;

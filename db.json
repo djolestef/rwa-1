@@ -1,10 +1,10 @@
 {
   "medicines": [
     {
-      "id": 1,
       "name": "brufen",
       "needsPrescription": false,
-      "count": 50
+      "count": 100,
+      "id": 1
     },
     {
       "id": 2,
@@ -23,32 +23,66 @@
       "name": "andol",
       "needsPrescription": true,
       "count": 70
+    },
+    {
+      "name": "Paracetamol",
+      "needsPrescription": true,
+      "count": 123,
+      "id": 5
     }
   ],
   "customers": [
     {
       "id": 1,
-      "medicines": ["andol", "strepsils", "djole", "brufen"],
-      "hasPrescription": [true, false, false, false]
+      "medicines": [
+        "andol",
+        "strepsils",
+        "djole",
+        "brufen"
+      ],
+      "hasPrescription": [
+        true,
+        false,
+        false,
+        false
+      ]
     },
     {
       "id": 2,
-      "medicines": ["brufen", "andol", "strepsils"],
-      "hasPrescription": [false, false, true]
+      "medicines": [
+        "brufen",
+        "andol",
+        "strepsils"
+      ],
+      "hasPrescription": [
+        false,
+        false,
+        true
+      ]
     },
     {
       "id": 3,
-      "medicines": ["fervex", "andol", "brufen"],
-      "hasPrescription": [true, true, false]
+      "medicines": [
+        "fervex",
+        "andol",
+        "brufen"
+      ],
+      "hasPrescription": [
+        true,
+        true,
+        false
+      ]
     }
   ],
-  "pharmacist": [
+  "pharmacists": [
     {
       "id": 1,
-      "isAvailable": true
+      "name": "Jelena",
+      "isAvailable": false
     },
     {
       "id": 2,
+      "name": "Milena",
       "isAvailable": true
     }
   ]

@@ -30,3 +30,13 @@
 .response {
   margin: 0;
 }
+
+#simulationDiv {
+  display: flex;
+  flex-direction: row;
+}
+
+#pharmacistDiv,
+#customersMedicinesDiv {
+  margin-right: 20px;
+}

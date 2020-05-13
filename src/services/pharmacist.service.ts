@@ -3,6 +3,10 @@ import {take} from 'rxjs/operators';
 import MedicineService from './medicine.service';
 import Customer from '../Models/Customer';
 import Medicine from '../Models/Medicine';
+import Pharmacist from '../Models/Pharmacist';
+import DrawSimulation from '../draw/drawSimulation';
+
+const API_URL = 'http://localhost:3000/pharmacists/';
 
 class PharmacistService {
   private medicineService: MedicineService;
@@ -15,6 +19,43 @@ class PharmacistService {
     this.canHaveMedicine = '';
     this.mustHavePrescription = '';
     this.doesntHave = '';
+  }
+
+  public fetchAllPharmacists(): Observable<any> {
+    return from(
+      fetch(API_URL)
+        .then((response: Response) => {
+          if (!response.ok) {
+            throw new Error('Database not found');
+          } else {
+            return response.json();
+          }
+        })
+        .catch((err) => console.log(`Error `, err))
+    );
+  }
+
+  public switchPharmacists() {
+    this.fetchAllPharmacists().subscribe((pharmacists: Array<Pharmacist>) => {
+      pharmacists.map((pharmacist: Pharmacist) => {
+        this.changeAvailability(pharmacist);
+      });
+    });
+  }
+  
+  public changeAvailability(pharmacist: Pharmacist) {
+    // fetch(`${API_URL}${pharmacist.id}`, {
+    //   method: 'put',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     id: pharmacist.id,
+    //     name: pharmacist.name,
+    //     isAvailable: !pharmacist.isAvailable,
+    //   }),
+    // });
   }
 
   public startWorkWithCustomer(customer: Customer): void {
