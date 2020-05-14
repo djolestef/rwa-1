@@ -11,10 +11,10 @@ class CustomerService {
           if (!response.ok) {
             throw new Error('Database not found');
           } else {
-            return response.json().then;
+            return response.json();
           }
         })
-        .catch((err) => console.log(`Error `, err))
+        .catch((err: Error) => console.log(`Error `, err))
     );
   }
 
@@ -28,18 +28,17 @@ class CustomerService {
             return response.json();
           }
         })
-        .catch((err) => console.log(`Error `, err))
+        .catch((err: Error) => console.log(`Error `, err))
     );
   }
 
   public fetchRandomCustomer(): Observable<any> {
-    var randomCustomerId: number = Math.floor(Math.random() * 3 + 1);
-    // var randomCustomerId = 1;
+    let randomCustomerId: number = Math.floor(Math.random() * 10 + 1);
     return from(
       this.fetchCustomerById(randomCustomerId)
         .toPromise()
         .then((customer: Customer) => {
-          var customer: Customer = new Customer(
+          customer = new Customer(
             customer[0].id,
             customer[0].medicines,
             customer[0].hasPrescription

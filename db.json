@@ -23,23 +23,174 @@
       "name": "Andol",
       "needsPrescription": true,
       "count": 70
+    },
+    {
+      "name": "Aspirin",
+      "needsPrescription": false,
+      "count": 55,
+      "id": 5
+    },
+    {
+      "name": "Xanax",
+      "needsPrescription": true,
+      "count": 40,
+      "id": 6
+    },
+    {
+      "name": "Caffetin",
+      "needsPrescription": false,
+      "count": 40,
+      "id": 7
+    },
+    {
+      "name": "Pantetnol",
+      "needsPrescription": false,
+      "count": 45,
+      "id": 8
+    },
+    {
+      "name": "Phlebodia",
+      "needsPrescription": true,
+      "count": 70,
+      "id": 9
     }
   ],
   "customers": [
     {
       "id": 1,
-      "medicines": ["Andol", "Strepsils", "Djole", "Brufen"],
-      "hasPrescription": [true, false, false, false]
+      "medicines": [
+        "Andol",
+        "Strepsils",
+        "Coldrex",
+        "Brufen"
+      ],
+      "hasPrescription": [
+        true,
+        false,
+        false,
+        false
+      ]
     },
     {
       "id": 2,
-      "medicines": ["Brufen", "Andol", "Strepsils"],
-      "hasPrescription": [false, false, true]
+      "medicines": [
+        "Brufen",
+        "Andol",
+        "Strepsils"
+      ],
+      "hasPrescription": [
+        false,
+        false,
+        true
+      ]
     },
     {
       "id": 3,
-      "medicines": ["Fervex", "Andol", "Brufen"],
-      "hasPrescription": [true, true, false]
+      "medicines": [
+        "Fervex",
+        "Andol",
+        "Brufen"
+      ],
+      "hasPrescription": [
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "id": 4,
+      "medicines": [
+        "Fervex",
+        "Aspirin",
+        "Brufen",
+        "Phlebodia"
+      ],
+      "hasPrescription": [
+        true,
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 5,
+      "medicines": [
+        "Caffetin",
+        "Xanax",
+        "Defrinol",
+        "Andol"
+      ],
+      "hasPrescription": [
+        true,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 6,
+      "medicines": [
+        "Fervex",
+        "Andol",
+        "Phlebodia"
+      ],
+      "hasPrescription": [
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "id": 7,
+      "medicines": [
+        "Pantetnol",
+        "Caffetin",
+        "Brufen"
+      ],
+      "hasPrescription": [
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "id": 8,
+      "medicines": [
+        "Fervex",
+        "Andol",
+        "Xanax"
+      ],
+      "hasPrescription": [
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "id": 9,
+      "medicines": [
+        "Fervex",
+        "Brufen",
+        "Olynth"
+      ],
+      "hasPrescription": [
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "id": 10,
+      "medicines": [
+        "Fervex",
+        "Aspirin",
+        "Brufen"
+      ],
+      "hasPrescription": [
+        true,
+        true,
+        false
+      ]
     }
   ],
   "pharmacists": [

@@ -31,7 +31,7 @@ class PharmacistService {
             return response.json();
           }
         })
-        .catch((err) => console.log(`Error `, err))
+        .catch((err: Error) => console.log(`Error `, err))
     );
   }
 

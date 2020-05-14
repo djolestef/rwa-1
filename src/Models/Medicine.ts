@@ -4,15 +4,6 @@ class Medicine {
   public needsPrescription: boolean;
   public count: number;
 
-  constructor() // id: number,
-  // name: string,
-  // needsPrescription: boolean,
-  // count: number
-  {
-    // this.id = id;
-    // this.name = name;
-    // this.needsPrescription = needsPrescription;
-    // this.count = count;
-  }
+  constructor() {}
 }
 export default Medicine;

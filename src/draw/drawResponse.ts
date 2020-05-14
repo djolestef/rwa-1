@@ -13,17 +13,16 @@ class DrawResponse {
     doesntHave: string,
     container: HTMLDivElement
   ): void {
-    // var container: HTMLDivElement = document.getElementById(
-    //   'responseDiv'
-    // ) as HTMLDivElement;
-    if (canHave) {
-      const canHaveParagraph: HTMLParagraphElement = document.createElement(
+    container.appendChild(document.createElement('br'));
+
+    if (doesntHave) {
+      const doesntHaveParagraph: HTMLParagraphElement = document.createElement(
         'p'
       );
-      canHaveParagraph.className = 'lead canHaveMedicine response';
-      canHaveParagraph.innerHTML = `Mozete dobiti ${canHave}`;
-      // console.log(canHave);
-      container.appendChild(canHaveParagraph);
+      doesntHaveParagraph.innerHTML = `Trenutno nemamo ${doesntHave}`;
+      doesntHaveParagraph.id = 'pharmacyDoesntHaveMedicine';
+      doesntHaveParagraph.className = 'lead cantHaveMedicine response';
+      container.appendChild(doesntHaveParagraph);
     }
 
     if (mustHavePrescription) {
@@ -33,21 +32,17 @@ class DrawResponse {
       needsPrescriptionParagraph.innerHTML = `Morate imati recept za ${mustHavePrescription}`;
       needsPrescriptionParagraph.className = 'lead cantHaveMedicine response';
       needsPrescriptionParagraph.id = 'needsPrescription';
-      // console.log(mustHavePrescription);
       container.appendChild(needsPrescriptionParagraph);
     }
 
-    if (doesntHave) {
-      const doesntHaveParagraph: HTMLParagraphElement = document.createElement(
+    if (canHave) {
+      const canHaveParagraph: HTMLParagraphElement = document.createElement(
         'p'
       );
-      doesntHaveParagraph.innerHTML = `Trenutno nemamo ${doesntHave}`;
-      doesntHaveParagraph.id = 'pharmacyDoesntHaveMedicine';
-      doesntHaveParagraph.className = 'lead cantHaveMedicine response';
-      // console.log(doesntHave);
-      container.appendChild(doesntHaveParagraph);
+      canHaveParagraph.className = 'lead canHaveMedicine response';
+      canHaveParagraph.innerHTML = `Mozete dobiti ${canHave}`;
+      container.appendChild(canHaveParagraph);
     }
-    container.appendChild(document.createElement('br'));
   }
 }
 export default DrawResponse;

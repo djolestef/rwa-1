@@ -53,6 +53,7 @@ class DrawAddOrEditForm {
             </button>
           </div>
         </div>
+        <label class="lead" id="validationLabel"></label>
       </form>
       `;
   }

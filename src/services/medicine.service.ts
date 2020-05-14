@@ -15,7 +15,7 @@ class MedicineService {
             return response.json();
           }
         })
-        .catch((err) => console.log(`Error `, err))
+        .catch((err: Error) => console.log(`Error `, err))
     );
   }
 
@@ -29,7 +29,7 @@ class MedicineService {
             return response.json();
           }
         })
-        .catch((err) => console.log(`Error `, err))
+        .catch((err: Error) => console.log(`Error `, err))
     );
   }
 
@@ -43,44 +43,58 @@ class MedicineService {
             return response.json();
           }
         })
-        .catch((err) => console.log(`Error `, err))
+        .catch((err: Error) => console.log(`Error `, err))
     );
   }
 
-  public addNewMedicine(): void {
-    var medicine: Medicine = new Medicine();
-    var nameInput: HTMLInputElement = document.createElement('input');
+  public addNewMedicine(allMedicineNames: Array<string>): void {
+    let medicine: Medicine = new Medicine();
+    let nameInput: HTMLInputElement = document.createElement('input');
     nameInput = document.getElementById('nameInput') as HTMLInputElement;
     medicine.name = nameInput.value;
 
-    var prescriptionInput: HTMLInputElement = document.createElement('input');
-    prescriptionInput = document.querySelector(
-      'input[name="radioButton"]:checked'
-    );
-    medicine.needsPrescription = prescriptionInput.value == 'true';
-
-    var countInput: HTMLInputElement = document.createElement('input');
-    countInput = document.getElementById('countInput') as HTMLInputElement;
-    medicine.count = parseInt(countInput.value);
-
-    fetch(API_URL, {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: medicine.name,
-        needsPrescription: medicine.needsPrescription,
-        count: medicine.count,
-      }),
-    }).then(() => {
-      var drawMedicines: DrawMedicines = new DrawMedicines();
-      drawMedicines.draw();
+    let flag: boolean = false;
+    allMedicineNames.forEach((medicineName: string) => {
+      if (medicineName == medicine.name) flag = true;
     });
+
+    if (flag) {
+      let validationLabel: HTMLLabelElement = document.getElementById(
+        'validationLabel'
+      ) as HTMLLabelElement;
+
+      validationLabel.innerHTML = 'Lek je već unet!';
+      validationLabel.style.color = 'red';
+    } else {
+      let prescriptionInput: HTMLInputElement = document.createElement('input');
+      prescriptionInput = document.querySelector(
+        'input[name="radioButton"]:checked'
+      );
+      medicine.needsPrescription = prescriptionInput.value == 'true';
+
+      let countInput: HTMLInputElement = document.createElement('input');
+      countInput = document.getElementById('countInput') as HTMLInputElement;
+      medicine.count = parseInt(countInput.value);
+
+      fetch(API_URL, {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: medicine.name,
+          needsPrescription: medicine.needsPrescription,
+          count: medicine.count,
+        }),
+      }).then(() => {
+        let drawMedicines: DrawMedicines = new DrawMedicines();
+        drawMedicines.draw();
+      });
+    }
   }
 
-  public deleteMedicine(id) {
+  public deleteMedicine(id): void {
     fetch(`${API_URL}${id}`, {
       method: 'delete',
       headers: {
@@ -88,24 +102,24 @@ class MedicineService {
         'Content-Type': 'application/json',
       },
     }).then(() => {
-      var drawMedicines: DrawMedicines = new DrawMedicines();
+      let drawMedicines: DrawMedicines = new DrawMedicines();
       drawMedicines.draw();
     });
   }
 
-  public updateMedicine(id: number) {
-    var medicine: Medicine = new Medicine();
-    var nameInput: HTMLInputElement = document.createElement('input');
+  public updateMedicine(id: number): void {
+    let medicine: Medicine = new Medicine();
+    let nameInput: HTMLInputElement = document.createElement('input');
     nameInput = document.getElementById('nameInput') as HTMLInputElement;
     medicine.name = nameInput.value;
 
-    var prescriptionInput: HTMLInputElement = document.createElement('input');
+    let prescriptionInput: HTMLInputElement = document.createElement('input');
     prescriptionInput = document.querySelector(
       'input[name="radioButton"]:checked'
     );
     medicine.needsPrescription = prescriptionInput.value == 'true';
 
-    var countInput: HTMLInputElement = document.createElement('input');
+    let countInput: HTMLInputElement = document.createElement('input');
     countInput = document.getElementById('countInput') as HTMLInputElement;
     medicine.count = parseInt(countInput.value);
 
@@ -121,7 +135,7 @@ class MedicineService {
         count: medicine.count,
       }),
     }).then(() => {
-      var drawMedicines: DrawMedicines = new DrawMedicines();
+      let drawMedicines: DrawMedicines = new DrawMedicines();
       drawMedicines.draw();
     });
   }
