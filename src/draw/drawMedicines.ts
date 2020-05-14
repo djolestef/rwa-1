@@ -1,14 +1,19 @@
 import MedicineService from '../services/medicine.service';
 import Medicine from '../Models/Medicine';
 import DrawUpdateMedicine from './drawUpdateMedicine';
+import DrawAddNewMedicine from './drawAddNewMedicine';
+import {fromEvent, from} from 'rxjs';
+import {debounceTime, map, filter, switchMap, catchError} from 'rxjs/operators';
 
 class DrawMedicines {
   private medicineService: MedicineService;
   private drawUpdateMedicine: DrawUpdateMedicine;
+  private drawAddNewMedicine: DrawAddNewMedicine;
 
   constructor() {
     this.medicineService = new MedicineService();
     this.drawUpdateMedicine = new DrawUpdateMedicine();
+    this.drawAddNewMedicine = new DrawAddNewMedicine();
   }
 
   public draw(): void {
@@ -17,6 +22,67 @@ class DrawMedicines {
     ) as HTMLDivElement;
 
     container.innerHTML = '';
+
+    let upperDiv: HTMLDivElement = document.createElement('div');
+    upperDiv.id = 'upperDiv';
+    upperDiv.className = 'd-flex';
+    container.appendChild(upperDiv);
+
+    let searchDiv: HTMLDivElement = document.createElement('div');
+    searchDiv.className = 'mr-auto p-2';
+    upperDiv.appendChild(searchDiv);
+    searchDiv.id = 'searchDiv';
+
+    let searchLabel: HTMLLabelElement = document.createElement('label');
+    searchLabel.id = 'searchLabel';
+    searchDiv.appendChild(searchLabel);
+    searchLabel.innerHTML = 'Proveri dostupnost leka: ';
+
+    let searchInput: HTMLInputElement = document.createElement('input');
+    searchInput.id = 'searchInput';
+    searchInput.className = 'form-control';
+    searchDiv.appendChild(searchInput);
+
+    let responseLabel: HTMLLabelElement = document.createElement('label');
+    responseLabel.id = 'responseLabel';
+    searchDiv.appendChild(responseLabel);
+
+    let addNewButtonDiv: HTMLDivElement = document.createElement('div');
+    addNewButtonDiv.id = 'addNewButtonDiv';
+    addNewButtonDiv.className = 'p-2';
+    upperDiv.appendChild(addNewButtonDiv);
+
+    var addNewMedicineButton: HTMLButtonElement = document.createElement(
+      'button'
+    );
+    addNewButtonDiv.appendChild(addNewMedicineButton);
+    addNewMedicineButton.id = 'addNewMedicineButton';
+    addNewMedicineButton.className = 'btn btn-success';
+    addNewMedicineButton.innerHTML = 'Dodaj lek';
+    addNewMedicineButton.onclick = (ev) => {
+      this.drawAddNewMedicine.draw();
+    };
+
+    fromEvent(searchInput, 'input')
+      .pipe(
+        debounceTime(500),
+        map((ev: Event) => ev.target.value),
+        // filter((text: string) => text.length >= 3),
+        switchMap((medicineName: string) =>
+          this.medicineService.fetchMedicineByName(medicineName)
+        )
+      )
+      .subscribe((medicines: Array<Medicine>) => {
+        medicines[0]
+          ? ((responseLabel.innerHTML = 'Dostupan'),
+            (responseLabel.style.color = 'green'))
+          : ((responseLabel.innerHTML = 'Nije dostupan'),
+            (responseLabel.style.color = 'red'));
+
+        if (searchInput.value == '') {
+          responseLabel.innerHTML = '';
+        }
+      });
 
     var table: HTMLTableElement = document.createElement('table');
     table.className = 'table';

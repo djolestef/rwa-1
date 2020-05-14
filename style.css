@@ -40,3 +40,43 @@
 #customersMedicinesDiv {
   margin-right: 20px;
 }
+
+#response {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+#upperDiv {
+  display: flex;
+  flex-direction: row;
+}
+
+#searchDiv {
+  display: flex;
+  width: 800px;
+  justify-items: flex-end;
+}
+
+#searchLabel,
+#responseLabel {
+  width: 30%;
+  margin-bottom: 0;
+  align-self: center;
+}
+
+#responseLabel {
+  margin-left: 20px;
+  width: 30%;
+}
+
+#searchLabel {
+  width: 25%;
+}
+
+#addNewButtonDiv {
+  margin-right: 50px;
+}
+
+#searchInput {
+  width: 40%;
+}

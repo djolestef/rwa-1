@@ -25,14 +25,6 @@ const drawSimulation: DrawSimulation = new DrawSimulation();
 const customer = new Customer(1, ['aa', 'bb'], [true, false]);
 var i: number = 0;
 
-var addNewMedicineHyperlink: HTMLElement = document.getElementById(
-  'addNewMedicineButton'
-) as HTMLElement;
-
-fromEvent(addNewMedicineHyperlink, 'click').subscribe(() => {
-  drawAddNewMedicine.draw();
-});
-
 var viewAllMedicinesButton: HTMLButtonElement = document.getElementById(
   'viewAllMedicinesButton'
 ) as HTMLButtonElement;
@@ -48,27 +40,3 @@ var startSimulationButton: HTMLButtonElement = document.getElementById(
 fromEvent(startSimulationButton, 'click').subscribe(() => {
   drawSimulation.draw();
 });
-
-// interval(1000)
-//   .pipe(takeUntil(fromEvent(document, 'click')))
-//   .subscribe((x) => console.log(x));
-
-// const clicks = fromEvent(document, 'click');
-// const timer = interval(1000);
-// const clicksOrTimer = merge(clicks, timer);
-// clicksOrTimer.subscribe((x) => console.log(x));
-
-// var medicine = new Medicine();
-// medicine.name = 'Djole';
-
-// var container: HTMLDivElement = document.getElementById(
-//   'startDiv'
-// ) as HTMLDivElement;
-
-// let drawTest: DrawTest = new DrawTest();
-
-// let content = drawTest.draw(medicine);
-// container.innerHTML = content;
-
-// medicineService.addNewMedicine();
-// console.log(document.getElementById('nameInput').value);

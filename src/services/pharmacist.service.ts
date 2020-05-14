@@ -35,29 +35,6 @@ class PharmacistService {
     );
   }
 
-  public switchPharmacists() {
-    this.fetchAllPharmacists().subscribe((pharmacists: Array<Pharmacist>) => {
-      pharmacists.map((pharmacist: Pharmacist) => {
-        this.changeAvailability(pharmacist);
-      });
-    });
-  }
-  
-  public changeAvailability(pharmacist: Pharmacist) {
-    // fetch(`${API_URL}${pharmacist.id}`, {
-    //   method: 'put',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     id: pharmacist.id,
-    //     name: pharmacist.name,
-    //     isAvailable: !pharmacist.isAvailable,
-    //   }),
-    // });
-  }
-
   public startWorkWithCustomer(customer: Customer): void {
     setTimeout(() => {
       this.resetMessages();

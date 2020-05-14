@@ -1,13 +1,4 @@
-import {
-  from,
-  interval,
-  fromEvent,
-  merge,
-  MonoTypeOperatorFunction,
-  Observable,
-  of,
-  OperatorFunction,
-} from 'rxjs';
+import {from, interval, fromEvent, merge, Observable} from 'rxjs';
 import {take, map, takeUntil, switchMap} from 'rxjs/operators';
 import PharmacistService from '../services/pharmacist.service';
 import CustomerService from '../services/customer.service';
@@ -15,17 +6,20 @@ import DrawResponse from './drawResponse';
 import Customer from '../Models/Customer';
 import Pharmacist from '../Models/Pharmacist';
 
+const numberOfCustomers = 5;
+
 class DrawSimulation {
   public work: Observable<any>;
   private pharmacistService: PharmacistService;
   private customerService: CustomerService;
   private drawResponse: DrawResponse;
-  //   public flag: Boolean;
+  private counter: number;
 
   constructor() {
     this.pharmacistService = new PharmacistService();
     this.customerService = new CustomerService();
     this.drawResponse = new DrawResponse();
+    this.counter = 0;
   }
 
   public draw(): void {
@@ -50,6 +44,7 @@ class DrawSimulation {
   }
 
   public start(pharmacist: Pharmacist): void {
+    this.counter = 0;
     var container: HTMLDivElement = document.getElementById(
       'simulationDiv'
     ) as HTMLDivElement;
@@ -57,15 +52,14 @@ class DrawSimulation {
     var response: HTMLDivElement = document.getElementById(
       'response'
     ) as HTMLDivElement;
-    container.appendChild(response);
 
     response.innerHTML = '';
 
-    let testButton: HTMLButtonElement = document.getElementById(
-      'testButton'
+    let switchButton: HTMLButtonElement = document.getElementById(
+      'switchButton'
     ) as HTMLButtonElement;
-    testButton.removeAttribute('hidden');
-    let newButton = testButton.cloneNode(true);
+    switchButton.removeAttribute('hidden');
+    let newButton: Node = switchButton.cloneNode(true);
 
     newButton.addEventListener('click', (event: Event) => {
       setTimeout(() => {
@@ -81,19 +75,18 @@ class DrawSimulation {
     });
 
     const parentNode = document.getElementById('simulationInfo');
-    parentNode.replaceChild(newButton, testButton);
+    parentNode.replaceChild(newButton, switchButton);
 
     interval(1000)
       .pipe(
         map(() => {
           return from(this.customerService.fetchRandomCustomer());
         }),
-        take(5),
+        take(numberOfCustomers),
         takeUntil(fromEvent(newButton, 'click'))
       )
       .subscribe((obs) =>
         obs.subscribe((customer: Customer) => {
-          console.log(pharmacist.id);
           this.pharmacistService.startWorkWithCustomer(customer);
           setTimeout(() => {
             this.drawActivePharmacist(pharmacist);
@@ -104,6 +97,18 @@ class DrawSimulation {
               this.pharmacistService.doesntHave,
               response
             );
+            this.counter++;
+            console.log(this.counter, numberOfCustomers);
+            if (this.counter == numberOfCustomers) {
+              this.pharmacistService
+                .fetchAllPharmacists()
+                .subscribe((pharmacists: Array<Pharmacist>) => {
+                  let nexPharmacists = pharmacists.filter(
+                    (p) => p.id != pharmacist.id
+                  );
+                  this.start(nexPharmacists[0]);
+                });
+            }
           }, 250);
         })
       );
@@ -130,7 +135,7 @@ class DrawSimulation {
       3) Trenutno nemamo lek1, lek2..
     </p>
     <button id="startSimulationButton" class="btn btn-lg btn-primary">Započni Simulaciju</button>
-    <button id="testButton" class="btn btn-lg btn-warning" hidden> Zameni radnika </button>
+    <button id="switchButton" class="btn btn-lg btn-warning" hidden> Zameni radnika </button>
     <div id="simulationDiv">
     <div id="pharmacistDiv" ></div>
     <div id="customersMedicinesDiv"></div>
@@ -164,74 +169,14 @@ class DrawSimulation {
     customersMedicinesDiv.innerHTML = innerHTML;
   }
 
-  // private drawActivePharmacist(pharmacist: Pharmacist): void {
-  //   var container: HTMLDivElement = document.getElementById(
-  //     'pharmacistDiv'
-  //   ) as HTMLDivElement;
-
-  //   container.innerHTML = '';
-
-  //   container.innerHTML = `<p class="lead">Aktivan radnik: ${pharmacist.name}<br /></p>
-  //   <button id="switchButton">Zameni</button>`;
-
-  //   let switchButton: HTMLButtonElement = document.getElementById(
-  //     'switchButton'
-  //   ) as HTMLButtonElement;
-  //   switchButton.addEventListener('click', (event: Event) => {
-  //     this.switchPharamcist();
-  //   });
-  // }
-
-  private switchPharamcist(): void {
-    this.pharmacistService.switchPharmacists();
-  }
-
-  private findAndDrawActivePharmacist(pharmacist: Pharmacist): void {
-    // this.pharmacistService
-    //   .fetchAllPharmacists()
-    //   .subscribe((pharmacists: Array<Pharmacist>) => {
-    //     pharmacists.map((pharmacist: Pharmacist) => {
-    //       if (!pharmacist.isAvailable) {
-    //         this.drawActivePharmacist();
-    //       }
-    //     });
-    //   });
-    // this.drawActivePharmacist();
-  }
-
   private drawActivePharmacist(pharmacist: Pharmacist): void {
-    // this.findActivePharmacist().subscribe((pharmacist: Pharmacist) => {
     var container: HTMLDivElement = document.getElementById(
       'pharmacistDiv'
     ) as HTMLDivElement;
 
     container.innerHTML = '';
 
-    container.innerHTML = `<p class="lead">Aktivan radnik: ${pharmacist.name}<br /></p>
-      <button id="switchButton">Zameni</button>`;
-
-    let switchButton: HTMLButtonElement = document.getElementById(
-      'switchButton'
-    ) as HTMLButtonElement;
-    switchButton.addEventListener('click', (event: Event) => {
-      this.switchPharamcist();
-    });
-    // });
+    container.innerHTML = `<p class="lead">Aktivan radnik: ${pharmacist.name}<br /></p>`;
   }
-
-  // private findActivePharmacist(): Observable<any> {
-  //   return from(
-  //     this.pharmacistService
-  //       .fetchAllPharmacists()
-  //       .toPromise()
-  //       .then((pharmacists: Array<Pharmacist>) => {
-  //         let pharmacist: Pharmacist;
-  //         pharmacists.map((fetchedPharmacist: Pharmacist) => {
-  //           if (!fetchedPharmacist.isAvailable) pharmacist = fetchedPharmacist;
-  //         });
-  //         return pharmacist;
-  //       })
-  //   );
-  // }
 }
 export default DrawSimulation;
